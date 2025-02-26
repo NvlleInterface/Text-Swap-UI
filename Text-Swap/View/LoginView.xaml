@@ -205,15 +205,15 @@
                     </TextBlock>
 
                     <Button x:Name="btnLogin" 
-        Command="{Binding LoginCommand}"
-        IsEnabled="{Binding IsNotLoading}"
-        BorderThickness="0"
-        Foreground="White"
-        FontFamily="Montserrat"
-        Cursor="Hand"
-        FontSize="12"
-        Grid.Column="2"
-        Margin="0,30,0,0">
+                            Command="{Binding LoginCommand}"
+                            IsEnabled="{Binding IsNotLoading}"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            FontSize="12"
+                            Grid.Column="2"
+                            Margin="0,30,0,0">
 
                         <Button.Style>
                             <Style TargetType="Button">
@@ -242,12 +242,12 @@
                                HorizontalAlignment="Center"/>
 
                                         <!-- Spinner -->
-                                <fa:IconImage Icon="Spinner"
+                                <!--<fa:IconImage Icon="Spinner"
                                   FlowDirection="RightToLeft"
                                   Width="20" Height="20"
                                   Foreground="White"
                                   VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"/>
+                                  HorizontalAlignment="Center"/>-->
                                     </Grid>
 
                                 </Border>
@@ -258,7 +258,28 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
-                        <TextBlock Text="Forgot Password?"
+                        <CheckBox Content="Remember me"
+                                       Foreground="DarkGray"
+                                       FontSize="12"
+                                       FontWeight="Medium"
+                                       FontFamily="Montserrat"/>
+                        <TextBlock Text="Forgot password?"
+                                    Foreground="White"
+                                   FontSize="12"
+                                   FontWeight="Medium"
+                                   FontFamily="Montserrat"
+                                   Cursor="Hand"
+                                   Margin="8,0,0,0">
+                            <!--<Hyperlink NavigateUri="http://141.94.223.20/register" RequestNavigate="Hyperlink_RequestNavigate">
+                                Reset
+                            </Hyperlink>-->
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,15,0,0">
+                        <TextBlock Text="Not a member?"
                                        Foreground="DarkGray"
                                        FontSize="12"
                                        FontWeight="Medium"
