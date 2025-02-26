@@ -31,14 +31,14 @@ public partial class MainView : Window
         //{
         //    WelcomeText.Text = $"Bienvenue, {Application.Current.Properties["UserName"]}";
         //}
-        var identity = Thread.CurrentPrincipal.Identity;
-        if (identity.IsAuthenticated)
+        var identity = Thread.CurrentPrincipal?.Identity;
+        if (identity != null && identity.IsAuthenticated)
         {
             WelcomeText.Text = $"Bienvenue, {identity.Name}";
         }
 
         var principal = Thread.CurrentPrincipal as GenericPrincipal;
-        if (principal.IsInRole("Admin"))
+        if (principal != null && principal.IsInRole("Admin"))
         {
            // AdminPanel.Visibility = Visibility.Visible; // Afficher un menu Admin si nécessaire
         }
