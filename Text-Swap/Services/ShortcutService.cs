@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Text_Swap.Services;
 
 public static class ShortcutService
 {
-    private static readonly string _filePath = "C:\\shortcuts\\shortcuts.json";
+    private static readonly string _filePath = GetLocalisationJson();
     //private static readonly string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Text-Swap", "shortcuts.json");
 
 
@@ -37,5 +38,14 @@ public static class ShortcutService
     {
         string json = JsonSerializer.Serialize(shortcuts, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(_filePath, json);
+    }
+
+    private static string GetLocalisationJson()
+    {
+        var config = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory) // Définit le répertoire de base
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Charge le fichier JSON
+                    .Build();
+        return config["LocalStorage"];
     }
 }

@@ -5,8 +5,10 @@ using System.Security;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Text_Swap.Repositories;
+using Text_Swap.View;
 
 namespace Text_Swap.ViewModel;
 
@@ -81,16 +83,25 @@ public class RegisterViewModel : ViewModelBase
             return;
         }
 
-        var isValidUser = _userRepository.Register(Username, Email, Password, ConfirmPassword);
-        if (isValidUser)
+        var userResponse = _userRepository.Register(Username, Email, Password, ConfirmPassword);
+        if (userResponse != null && !userResponse.Error)
         {
             Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
             IsViewVisible = false;
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+                var loginView = new LoginView();
+                loginView.Show();
+
+                // Fermer la fenêtre actuelle
+                Application.Current.MainWindow.Close();
+            //});
+            ErrorMessage = "Inscription réussie ! (Simulation)";
         }
         else
         {
             ErrorMessage = "* Invalid usernae or password";
         }
-        ErrorMessage = "Inscription réussie ! (Simulation)";
+        
     }
 }

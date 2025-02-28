@@ -22,16 +22,38 @@ namespace Text_Swap.View
     /// </summary>
     public partial class HomeView : UserControl
     {
-        private readonly HomeViewModel _viewModel;
         public HomeView()
         {
             InitializeComponent();
-            _viewModel = new HomeViewModel();
+            DataContext = new HomeViewModel();
         }
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void ShortcutTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            _viewModel.HandleKeyPress(e.Key);
+            if (e.Key == Key.Space)
+            {
+                var vm = DataContext as HomeViewModel;
+                //vm?.UpdateExpression();
+            }
+        }
+
+        private void RecentShortcuts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                var vm = DataContext as HomeViewModel;
+                //vm?.SelectRecentShortcut(e.AddedItems[0].ToString());
+            }
+        }
+
+        private void txtInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnClearSearch_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

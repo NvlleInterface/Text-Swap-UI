@@ -13,7 +13,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Name="MainViews">
 
     <Window.DataContext>
         <viewModel:MainViewModel />
@@ -85,7 +86,7 @@
                                  Command="{Binding ShowHomeViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButonIcon}" />
-                            <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}" />
+                            <TextBlock Text="Accueil" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
 
@@ -214,6 +215,12 @@
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
+                            <Button x:Name="btnLogout" Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource color4}"
+                                 Click="btnLogout_Click">
+                                <fa:IconImage Icon="SignOut" Style="{StaticResource iconButonIcon}"
+                          />
+                            </Button>
                             <Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color1}">
                                 <fa:IconImage Icon="AngleDown" 
@@ -227,6 +234,7 @@
                                            FontSize="12"
                                            VerticalAlignment="Center"
                                            />
+                            
                             <Ellipse Height="35" Width="35"
                                      Stroke="{StaticResource color2}"
                                      StrokeThickness="2"
@@ -237,14 +245,6 @@
                                     <ImageBrush ImageSource="/Images/img_home.png" />
                                 </Ellipse.Fill>-->
 
-                                <Ellipse.ContextMenu>
-                                      <ContextMenu>
-                                        <MenuItem Header="Déconnexion"
-                                                  Click="Logout_Click" >
-                                            <fa:IconImage Icon="SignOut" Style="{StaticResource menuButonIcon}" />
-                                        </MenuItem>
-                                    </ContextMenu>
-                                </Ellipse.ContextMenu>
                             </Ellipse>
                             <!--<Ellipse Height="35" Width="35"
                                          Stroke="{StaticResource color2}"

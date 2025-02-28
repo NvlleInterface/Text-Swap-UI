@@ -17,18 +17,17 @@ public partial class App : Application
     protected void ApplicationStart(object sender, StartupEventArgs e)
     {
 
-        var loginView = new LoginView();
-        loginView.Show();
-        loginView.IsVisibleChanged += (s, ev) =>
-        {
-            if (loginView.IsVisible == false && loginView.IsLoaded && !NavigatingToRegister)
-            {
-                var mainView = new MainView();
-                mainView.Show();
-                //loginView.Close();
-            }
-        };
+        //var loginView = new LoginView();
+        //loginView.Show();
+        //loginView.IsVisibleChanged += (s, ev) =>
+        //{
+        //    if (loginView.IsVisible == false && loginView.IsLoaded && !NavigatingToRegister)
+        //    {
+        //        var mainView = new MainView();
+        //        mainView.Show();
+        //    }
+        //};
+        var mainView = new MainView();
+        mainView.Show();
     }
-
-    
 }

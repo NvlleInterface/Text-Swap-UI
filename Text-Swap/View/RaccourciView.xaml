@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Text_Swap.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Name="Raccourcis">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,8 +14,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="10">
-            <TextBox Width="150" Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Width="250" Text="{Binding NewReplacement, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Width="150" Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 5 0"/>
+            <TextBox Width="360" Text="{Binding NewReplacement, UpdateSourceTrigger=PropertyChanged}" />
             <Button Content="Ajouter" Command="{Binding AddShortcutCommand}" Margin="5"/>
         </StackPanel>
 

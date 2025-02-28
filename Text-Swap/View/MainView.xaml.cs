@@ -79,7 +79,7 @@ public partial class MainView : Window
         }
     }
 
-    private void Logout_Click(object sender, RoutedEventArgs e)
+    private void btnLogout_Click(object sender, RoutedEventArgs e)
     {
         // 1️⃣ Effacer l'utilisateur actuel
         Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(string.Empty), null);
@@ -99,11 +99,11 @@ public partial class MainView : Window
         }
 
         // 3️⃣ Rediriger vers `LoginView`
-        var loginView = new LoginView();
-        loginView.Show();
+       // var loginView = new LoginView();
+        //loginView.Show();
 
         // 4️⃣ Fermer `MainView`
-        this.Close();
+        //this.Close();
     }
 
     private void UserMenu_ContextMenuOpening(object sender, ContextMenuEventArgs e)

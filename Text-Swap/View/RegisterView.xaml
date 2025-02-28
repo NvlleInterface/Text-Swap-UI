@@ -16,7 +16,8 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Name="RegisterViews">
 
     <Window.DataContext>
         <viewModel:RegisterViewModel />

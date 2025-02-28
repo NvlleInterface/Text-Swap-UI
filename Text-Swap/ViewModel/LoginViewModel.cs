@@ -91,7 +91,16 @@ public class LoginViewModel : ViewModelBase
                 var identity = new GenericIdentity(username);
                 var principal = new GenericPrincipal(identity, roles);
                 Thread.CurrentPrincipal = principal;
-                AppDomain.CurrentDomain.SetThreadPrincipal(principal); // Garde les infos dans tous les threads
+                if (Thread.CurrentPrincipal == null && Thread.CurrentPrincipal.Identity.IsAuthenticated == false)
+                {
+                    // Si aucun principal n'est défini ou l'utilisateur n'est pas authentifié, définissons le nouveau principal
+                    AppDomain.CurrentDomain.SetThreadPrincipal(principal);
+                }
+                else
+                {
+                    // Le principal est déjà défini
+                    Console.WriteLine("Un principal a déjà été défini sur ce thread.");
+                }// Garde les infos dans tous les threads
 
                 //SaveUserToSecureStorage(username, roles, token); // Sauvegarde pour une reconnexion future
             }
@@ -109,19 +118,5 @@ public class LoginViewModel : ViewModelBase
         {
             ErrorMessage = "Le serveur n'a pas pu etre joint. verifeir votre connexion reseau";
         }
-    }
-
-    private string DecodeJwtToken(string token)
-    {
-        if (string.IsNullOrWhiteSpace(token))
-            return "Utilisateur inconnu";
-
-        var handler = new JwtSecurityTokenHandler();
-        var jwtToken = handler.ReadJwtToken(token);
-
-        // Récupérer le claim "name" ou "sub" (identifiant principal)
-        var nameClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "name" || c.Type == ClaimTypes.Name || c.Type == "sub");
-
-        return nameClaim?.Value ?? "Utilisateur inconnu";
     }
 }

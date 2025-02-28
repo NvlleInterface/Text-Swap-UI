@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -15,7 +16,12 @@ public class UserRepository : IUserRepository
 
     public UserRepository()
     {
-        _httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5000/api/") };
+        var config = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory) // Définit le répertoire de base
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Charge le fichier JSON
+                    .Build();
+        string path = config["UrlServerAuthentication"];
+        _httpClient = new HttpClient { BaseAddress = new Uri(path) };
     }
     public Response LoginAsync(NetworkCredential networkCredential)
     {
@@ -39,23 +45,26 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public bool Register(string username, string email, SecureString password, SecureString confirmPassword)
+    public Response Register(string username, string email, SecureString password, SecureString confirmPassword)
     {
-        var loginCommand = new RegisterCommand(username, email, new System.Net.NetworkCredential(string.Empty, password).Password, new System.Net.NetworkCredential(string.Empty, confirmPassword).Password);
-
-        HttpResponseMessage response = _httpClient.PostAsJsonAsync("register", loginCommand).Result;
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var authResponse = response.Content.ReadFromJsonAsync<Response>();
-            if (authResponse?.Result.Data?.Token != null)
-            {
-                // Stocker le token si nécessaire (ex: dans un singleton ou dans un cache sécurisé)
-                return true;
-            }
-        }
+            var registerCommand = new RegisterCommand(username, email, new System.Net.NetworkCredential(string.Empty, password).Password, new System.Net.NetworkCredential(string.Empty, confirmPassword).Password);
 
-        return false;
+            HttpResponseMessage response = _httpClient.PostAsJsonAsync("register", registerCommand).Result;
+
+            var responseBody = response.Content.ReadAsStringAsync().Result;
+            var result = JsonSerializer.Deserialize<Response>(responseBody, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+            return result;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+       
     }
 
     public sealed record LoginCommand(string Email, string Password);

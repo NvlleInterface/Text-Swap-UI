@@ -11,5 +11,5 @@ namespace Text_Swap.Repositories;
 public interface IUserRepository
 {
     Response LoginAsync(NetworkCredential networkCredential);
-    bool Register(string username, string email, SecureString password, SecureString confirmPassword);
+    Response Register(string username, string email, SecureString password, SecureString confirmPassword);
 }

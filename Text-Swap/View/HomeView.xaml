@@ -3,15 +3,212 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Text_Swap.View"
+             xmlns:local="clr-namespace:Text_Swap.View" xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="500">
+             d:DesignHeight="450" d:DesignWidth="500"
+             Name="HomeViews">
 
-    <Grid>
-        <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" 
-         AcceptsReturn="True" 
-         FontSize="16" 
-         VerticalScrollBarVisibility="Auto"
-         Background="{StaticResource color8}" />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" 
+                       Text="Quels raccourcis allons-nous créer aujourd'hui ?" 
+                       Foreground="{StaticResource titleColor2}" 
+                       FontWeight="Bold"
+                       FontSize="14"
+                       TextWrapping="Wrap"/>
+            <StackPanel Grid.Column="1">
+                <Grid>
+                    
+                    <!-- TextBox avec marges pour laisser de l'espace aux icônes -->
+                    <TextBox x:Name="txtInput"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Padding="20,0,0,5"
+                     Height="20"
+                     Width="200"
+                     BorderThickness="1"
+                     Text="Recherchez un raccourci.." 
+                     Foreground="{StaticResource titleColor2}"
+                     TextChanged="txtInput_TextChanged"
+                      BorderBrush="LightGray"/>
+
+                    <!-- Icône de fermeture (à droite) -->
+                    <fa:IconImage x:Name="btnClearSearch" 
+                             Icon="Times" Width="12" Height="12"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Right"
+                             Margin="0,0,52,0"
+                             Foreground="Gray"
+                             Cursor="Hand"
+                             MouseDown="btnClearSearch_MouseDown"/>
+                    <fa:IconImage Icon="Search" Width="12" Height="12" 
+                              VerticalAlignment="Center" 
+                              Margin="0,0,180,0"
+                              Foreground="Gray"
+                            />    
+                </Grid>
+                
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0 20 0 0">
+            <TextBlock Text="🕒 Temps économisé :" 
+                       Foreground="#0077CC" 
+                        FontWeight="Bold"/>
+            <TextBlock Text="{Binding TimeSaved}" 
+                       Foreground="Blue" 
+                       FontWeight="Bold"
+                       Margin="130 0 0 0"/>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Raccourci" 
+                               FontWeight="Bold"
+                               Foreground="{StaticResource titleColor2}" 
+                                FontSize="14"
+                               Margin="0,20,0,5"/>
+                    <TextBox Text="{Binding ShortcutInput, UpdateSourceTrigger=PropertyChanged}" 
+                             Width="200" 
+                             Height="30" Margin="0 0 198 0"
+                             Background="LightGray"
+                             />
+                    <TextBlock Text="Expression complète" 
+                               FontWeight="Bold" Margin="0,20,0,5"
+                               Foreground="{StaticResource titleColor2}" 
+                                FontSize="14"/>
+                    <TextBox Text="{Binding ExpandedText}" 
+                             Width="300" 
+                             Height="200" 
+                             Margin="0 0 100 0"
+                             Background="LightGray"/>
+
+                    <TextBlock Text="Assigner à une collection" 
+                               FontWeight="Bold" Margin="0,20,0,5"
+                               Foreground="{StaticResource titleColor2}" 
+                                FontSize="14"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                Grid.Row="0"
+                                Text="Nouvelle collection"
+                                Background="Transparent"
+                                Foreground="{StaticResource titleColor3}" 
+                                FontSize="12"
+                                Margin="0 0 0 10"
+                                >
+                            <fa:IconImage 
+                                 Icon="Add" Width="10" Height="10"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Right"
+                                
+                                 Foreground="Gray"
+                                 Cursor="Hand"
+                                 MouseDown="btnClearSearch_MouseDown"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="1" 
+                                    Grid.Row="0"
+                                    Text="Support client"
+                                    Background="Transparent"
+                                    Foreground="{StaticResource titleColor3}" 
+                                    FontSize="12"
+                                    Margin="0 0 0 0"
+                            >
+                        <fa:IconImage 
+                             Icon="UserFriends" Width="10" Height="10"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Right"
+                             Margin="0,0,0,0"
+                             Foreground="Gray"
+                             Cursor="Hand"
+                             MouseDown="btnClearSearch_MouseDown"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="2" 
+                                   Grid.Row="0"
+                                   Text="Retard commande"
+                                   Background="Transparent"
+                                   Foreground="{StaticResource titleColor3}"
+                                   FontSize="12"
+                                   Margin="0 0 0 0"
+                            >
+                        <fa:IconImage 
+                             Icon="Clock" Width="10" Height="10"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Right"
+                             
+                             Foreground="Gray"
+                             Cursor="Hand"
+                             MouseDown="btnClearSearch_MouseDown"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="0" 
+                                    Grid.Row="1"
+                                    Text="Réclamation"
+                                    Background="Transparent"
+                                   Foreground="{StaticResource titleColor3}"
+                                   FontSize="12"
+                                   Margin="0 0 10 10"
+                            >
+                        <fa:IconImage 
+                             Icon="Comment" Width="10" Height="10"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Right"
+                             Margin="0,3,3,0"
+                             Foreground="Gray"
+                             Cursor="Hand"
+                             MouseDown="btnClearSearch_MouseDown"/>
+                        </TextBlock>
+                        <TextBlock Grid.Column="1" 
+                                    Grid.Row="1"
+                                    Text="FAQ"
+                                    Background="Transparent"
+                                   Foreground="{StaticResource titleColor3}"
+                                   FontSize="12"
+                                   Margin="0 0 10 10"
+                            >
+                        <fa:IconImage 
+                             Icon="QuestionCircle" Width="10" Height="10"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Right"
+                             Margin="0,3,3,0"
+                             Foreground="Gray"
+                             Cursor="Hand"
+                             MouseDown="btnClearSearch_MouseDown"/>
+                        </TextBlock>
+                    </Grid>
+
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="Vos derniers raccourcis" 
+                               Foreground="{StaticResource titleColor2}" 
+                                FontSize="14"
+                               FontWeight="Bold" Margin="0,20,0,5"/>
+                    <ListBox ItemsSource="{Binding RecentShortcuts}" SelectedItem="{Binding ShortcutInput, Mode=TwoWay}"/>
+
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>
