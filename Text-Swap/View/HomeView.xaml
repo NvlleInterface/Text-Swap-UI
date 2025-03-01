@@ -8,11 +8,12 @@
              d:DesignHeight="450" d:DesignWidth="500"
              Name="HomeViews">
 
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -28,20 +29,25 @@
                        TextWrapping="Wrap"/>
             <StackPanel Grid.Column="1">
                 <Grid>
-                    
-                    <!-- TextBox avec marges pour laisser de l'espace aux icônes -->
-                    <TextBox x:Name="txtInput"
-                     VerticalAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     Padding="20,0,0,5"
-                     Height="20"
-                     Width="200"
-                     BorderThickness="1"
-                     Text="Recherchez un raccourci.." 
-                     Foreground="{StaticResource titleColor2}"
-                     TextChanged="txtInput_TextChanged"
-                      BorderBrush="LightGray"/>
 
+                    <!-- TextBox avec marges pour laisser de l'espace aux icônes -->
+                    <TextBox x:Name="txtSearch"
+                             Text="{Binding ShortcutInput, UpdateSourceTrigger=PropertyChanged}"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             Padding="20,0,0,5"
+                             Height="20"
+                             Width="200"
+                             BorderThickness="1"
+                             Foreground="{StaticResource titleColor2}"
+                              BorderBrush="LightGray"
+                             />
+                    <!-- Liste filtrée de raccourcis -->
+                    <ListBox ItemsSource="{Binding FilteredShortcuts}"
+                             SelectedItem="{Binding ShortcutInput, Mode=TwoWay}"
+                             DisplayMemberPath="Trigger"
+                             Grid.Row="1"
+                             Margin="0,20,0,0"/>
                     <!-- Icône de fermeture (à droite) -->
                     <fa:IconImage x:Name="btnClearSearch" 
                              Icon="Times" Width="12" Height="12"
@@ -49,15 +55,14 @@
                              HorizontalAlignment="Right"
                              Margin="0,0,52,0"
                              Foreground="Gray"
-                             Cursor="Hand"
-                             MouseDown="btnClearSearch_MouseDown"/>
+                             Cursor="Hand"/>
                     <fa:IconImage Icon="Search" Width="12" Height="12" 
                               VerticalAlignment="Center" 
                               Margin="0,0,180,0"
                               Foreground="Gray"
-                            />    
+                            />
                 </Grid>
-                
+
 
             </StackPanel>
         </Grid>
@@ -73,7 +78,7 @@
         <StackPanel Grid.Row="2" Orientation="Vertical">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
@@ -87,11 +92,11 @@
                              Height="30" Margin="0 0 198 0"
                              Background="LightGray"
                              />
-                    <TextBlock Text="Expression complète" 
+                    <TextBlock  Text="Expression complète" 
                                FontWeight="Bold" Margin="0,20,0,5"
                                Foreground="{StaticResource titleColor2}" 
                                 FontSize="14"/>
-                    <TextBox Text="{Binding ExpandedText}" 
+                    <TextBox Text="{Binding ExpandedText, Mode=TwoWay}" 
                              Width="300" 
                              Height="200" 
                              Margin="0 0 100 0"
@@ -125,8 +130,7 @@
                                  HorizontalAlignment="Right"
                                 
                                  Foreground="Gray"
-                                 Cursor="Hand"
-                                 MouseDown="btnClearSearch_MouseDown"/>
+                                 Cursor="Hand"/>
                         </TextBlock>
                         <TextBlock Grid.Column="1" 
                                     Grid.Row="0"
@@ -142,8 +146,7 @@
                              HorizontalAlignment="Right"
                              Margin="0,0,0,0"
                              Foreground="Gray"
-                             Cursor="Hand"
-                             MouseDown="btnClearSearch_MouseDown"/>
+                             Cursor="Hand"/>
                         </TextBlock>
                         <TextBlock Grid.Column="2" 
                                    Grid.Row="0"
@@ -159,8 +162,7 @@
                              HorizontalAlignment="Right"
                              
                              Foreground="Gray"
-                             Cursor="Hand"
-                             MouseDown="btnClearSearch_MouseDown"/>
+                             Cursor="Hand"/>
                         </TextBlock>
                         <TextBlock Grid.Column="0" 
                                     Grid.Row="1"
@@ -176,8 +178,7 @@
                              HorizontalAlignment="Right"
                              Margin="0,3,3,0"
                              Foreground="Gray"
-                             Cursor="Hand"
-                             MouseDown="btnClearSearch_MouseDown"/>
+                             Cursor="Hand"/>
                         </TextBlock>
                         <TextBlock Grid.Column="1" 
                                     Grid.Row="1"
@@ -193,19 +194,19 @@
                              HorizontalAlignment="Right"
                              Margin="0,3,3,0"
                              Foreground="Gray"
-                             Cursor="Hand"
-                             MouseDown="btnClearSearch_MouseDown"/>
+                             Cursor="Hand"/>
                         </TextBlock>
                     </Grid>
 
                 </StackPanel>
-                
+
                 <StackPanel Grid.Column="1" Orientation="Vertical">
                     <TextBlock Text="Vos derniers raccourcis" 
                                Foreground="{StaticResource titleColor2}" 
                                 FontSize="14"
                                FontWeight="Bold" Margin="0,20,0,5"/>
-                    <ListBox ItemsSource="{Binding RecentShortcuts}" SelectedItem="{Binding ShortcutInput, Mode=TwoWay}"/>
+                    <ListBox ItemsSource="{Binding RecentShortcuts}" 
+                             SelectedItem="{Binding ShortcutInput, Mode=TwoWay}" />
 
                 </StackPanel>
             </Grid>

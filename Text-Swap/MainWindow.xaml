@@ -4,9 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Text_Swap"
+        xmlns:views="clr-namespace:Text_Swap.View"
+        xmlns:vms="clr-namespace:Text_Swap.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" 
+        Height="600" 
+        Width="850"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
 
+
+
+    <Grid>
+        <ContentControl Content="{Binding CurrentViewModel}" >
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vms:RegisterViewModel}">
+                    <views:RegisterView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:LoginViewModel}">
+                    <views:LoginView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ContentViewModel}">
+                    <views:ContentView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:RaccourciViewModel}">
+                    <views:RaccourciView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:HomeViewModel}">
+                    <views:HomeView />
+                </DataTemplate>
+
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </Window>

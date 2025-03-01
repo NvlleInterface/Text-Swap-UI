@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Text_Swap.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="600"
              Name="Raccourcis">
     <Grid>
         <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="10">
-            <TextBox Width="150" Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 5 0"/>
+            <TextBox Width="100" Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 5 0"/>
             <TextBox Width="360" Text="{Binding NewReplacement, UpdateSourceTrigger=PropertyChanged}" />
             <Button Content="Ajouter" Command="{Binding AddShortcutCommand}" Margin="5"/>
         </StackPanel>
@@ -27,7 +27,11 @@
                     <GridViewColumn Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Supprimer" Command="{Binding DataContext.RemoveShortcutCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}"/>
+                                <Button Content="Supprimer" 
+                                        Cursor="Hand"
+                                        Command="{Binding DataContext.RemoveShortcutCommand, 
+                                                RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

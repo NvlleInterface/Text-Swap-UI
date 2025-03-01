@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Text_Swap.View
@@ -18,45 +18,48 @@ namespace Text_Swap.View
     /// <summary>
     /// Logique d'interaction pour RegisterView.xaml
     /// </summary>
-    public partial class RegisterView : Window
+    public partial class RegisterView : UserControl
     {
         public RegisterView()
         {
             InitializeComponent();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-                DragMove();
-        }
-
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.WindowState = WindowState.Minimized;
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.DragMove();
+            }
         }
 
-        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-        }
-
-        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var loginView = new LoginView();
-            loginView.Show();
-
-            this.Close(); ;
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Left = (SystemParameters.PrimaryScreenWidth - parentWindow.Width) / 2;
+                parentWindow.Top = (SystemParameters.PrimaryScreenHeight - parentWindow.Height) / 2;
+            }
         }
     }
 }

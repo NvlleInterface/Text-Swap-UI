@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MVVMEssentials.ViewModels;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Text_Swap.Model;
 using Text_Swap.Services;
@@ -33,10 +31,11 @@ public class RaccourciViewModel : ViewModelBase
 
     public RaccourciViewModel()
     {
-        Shortcuts = new ObservableCollection<ShortcutModel>(ShortcutService.LoadShortcuts());
+        Shortcuts = ShortcutHelper.ConvertToObservableCollection(ShortcutService.LoadShortcuts());
 
         AddShortcutCommand = new ViewModelCommand(_ => AddShortcut(), _ => CanAddShortcut());
         RemoveShortcutCommand = new ViewModelCommand(RemoveShortcut, _ => Shortcuts.Any());
+
     }
 
     private bool CanAddShortcut() => !string.IsNullOrWhiteSpace(NewTrigger) && !string.IsNullOrWhiteSpace(NewReplacement);
@@ -44,17 +43,17 @@ public class RaccourciViewModel : ViewModelBase
     private void AddShortcut()
     {
         Shortcuts.Add(new ShortcutModel { Trigger = NewTrigger, Replacement = NewReplacement });
-        ShortcutService.SaveShortcuts(Shortcuts);
+        ShortcutService.AddShortcut(NewTrigger,  NewReplacement );
         NewTrigger = string.Empty;
         NewReplacement = string.Empty;
     }
 
-    private void RemoveShortcut(object parameter)
+    private void RemoveShortcut(object shortcut)
     {
-        if (parameter is ShortcutModel shortcut)
+        if (shortcut is ShortcutModel shortcutModel && Shortcuts.Contains(shortcutModel))
         {
-            Shortcuts.Remove(shortcut);
-            ShortcutService.SaveShortcuts(Shortcuts);
+            Shortcuts.Remove(shortcutModel);
+            ShortcutService.RemoveShortcut(shortcutModel.Trigger);
         }
     }
 }

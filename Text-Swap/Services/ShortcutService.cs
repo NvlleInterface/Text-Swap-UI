@@ -6,46 +6,75 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Text_Swap.Model;
 
-namespace Text_Swap.Services;
-
-public static class ShortcutService
+namespace Text_Swap.Services
 {
-    private static readonly string _filePath = GetLocalisationJson();
-    //private static readonly string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Text-Swap", "shortcuts.json");
-
-
-    public static List<ShortcutModel> LoadShortcuts()
+    public static class ShortcutService
     {
-        string directoryPath = Path.GetDirectoryName(_filePath);
+        private static readonly string _filePath = GetLocalisationJson();
 
-        if (!Directory.Exists(directoryPath))
+        static ShortcutService()
         {
-            Directory.CreateDirectory(directoryPath);
+            EnsureFileExists();
         }
 
-        if (!File.Exists(_filePath))
+        private static void EnsureFileExists()
         {
-            File.WriteAllText(_filePath, "[]"); // Écrire un JSON vide
+            string directoryPath = Path.GetDirectoryName(_filePath);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            if (!File.Exists(_filePath))
+            {
+                File.WriteAllText(_filePath, "{}"); // JSON vide (objet)
+            }
         }
 
-        string json = File.ReadAllText(_filePath);
-        return JsonSerializer.Deserialize<List<ShortcutModel>>(json) ?? new List<ShortcutModel>();
-    }
+        public static Dictionary<string, string> LoadShortcuts()
+        {
+            string json = File.ReadAllText(_filePath);
+            return JsonSerializer.Deserialize<Dictionary<string, string>>(json) ?? new Dictionary<string, string>();
+        }
 
-    public static void SaveShortcuts(IEnumerable<ShortcutModel> shortcuts)
-    {
-        string json = JsonSerializer.Serialize(shortcuts, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(_filePath, json);
-    }
+        public static bool AddShortcut(string trigger, string replacement)
+        {
+            var shortcuts = LoadShortcuts();
 
-    private static string GetLocalisationJson()
-    {
-        var config = new ConfigurationBuilder()
-                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory) // Définit le répertoire de base
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Charge le fichier JSON
-                    .Build();
-        return config["LocalStorage"];
+            if (shortcuts.ContainsKey(trigger))
+                return false; // Clé déjà existante, ajout refusé
+
+            shortcuts[trigger] = replacement;
+            SaveShortcuts(shortcuts);
+            return true;
+        }
+
+        public static bool RemoveShortcut(string trigger)
+        {
+            var shortcuts = LoadShortcuts();
+
+            if (!shortcuts.ContainsKey(trigger))
+                return false; // Clé inexistante
+
+            shortcuts.Remove(trigger);
+            SaveShortcuts(shortcuts);
+            return true;
+        }
+
+        public static void SaveShortcuts(Dictionary<string, string> shortcuts)
+        {
+            string json = JsonSerializer.Serialize(shortcuts, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(_filePath, json);
+        }
+
+        private static string GetLocalisationJson()
+        {
+            var config = new ConfigurationBuilder()
+                        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory) // Définit le répertoire de base
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Charge le fichier JSON
+                        .Build();
+            return config["ShortcutsFilePath"];
+        }
     }
 }

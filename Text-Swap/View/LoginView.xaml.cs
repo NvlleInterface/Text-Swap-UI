@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,54 +10,56 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Text_Swap.View;
-
-/// <summary>
-/// Logique d'interaction pour LoginView.xaml
-/// </summary>
-public partial class LoginView : Window
+namespace Text_Swap.View
 {
-    public LoginView()
+    /// <summary>
+    /// Logique d'interaction pour LoginView.xaml
+    /// </summary>
+    public partial class LoginView : UserControl
     {
-        InitializeComponent();
-    }
+        public LoginView()
+        {
+            InitializeComponent();
+        }
 
-    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        if (e.LeftButton == MouseButtonState.Pressed)
-            DragMove();
-    }
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.WindowState = WindowState.Minimized;
+            }
+        }
 
-    private void btnMinimize_Click(object sender, RoutedEventArgs e)
-    {
-        WindowState = WindowState.Minimized;
-    }
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
+        }
 
-    private void btnClose_Click(object sender, RoutedEventArgs e)
-    {
-        Application.Current.Shutdown();
-    }
+        private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.DragMove();
+            }
+        }
 
-    private void btnLogin_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
-    {
-        Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-    }
-
-    private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        ((App)Application.Current).NavigatingToRegister = true;
-
-        var registerView = new RegisterView();
-        registerView.Show();
-
-        this.Close(); ;
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Left = (SystemParameters.PrimaryScreenWidth - parentWindow.Width) / 2;
+                parentWindow.Top = (SystemParameters.PrimaryScreenHeight - parentWindow.Height) / 2;
+            }
+        }
     }
 }
-

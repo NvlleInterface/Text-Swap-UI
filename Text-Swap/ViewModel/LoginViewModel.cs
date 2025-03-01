@@ -11,22 +11,25 @@ using Text_Swap.Services;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System.Windows;
+using MVVMEssentials.ViewModels;
+using MVVMEssentials.Commands;
+using MVVMEssentials.Services;
+using Text_Swap.Commands;
 
 namespace Text_Swap.ViewModel;
 
 public class LoginViewModel : ViewModelBase
 {
-    private string _username;
+    private string _email;
     private SecureString _password;
     private string _errorMessage;
     private bool _isViewVisible = true;
 
-    private readonly IUserRepository _userRepository;
 
-    public string Username
+    public string Email
     {
-        get => _username;
-        set { _username = value; OnPropertyChanged(nameof(Username)); }
+        get => _email;
+        set { _email = value; OnPropertyChanged(nameof(Email)); }
     }
     public SecureString Password
     {
@@ -44,79 +47,18 @@ public class LoginViewModel : ViewModelBase
         set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); }
     }
 
-    public ICommand LoginCommand { get; }
-    public ICommand RecoverPasswwordCommand { get; }
+    public ICommand SubmitCommand { get; }
+    public ICommand NavigateForgotPasswordCommand { get; }
     public ICommand ShowPasswordCommand { get; }
     public ICommand RememberPasswordCommand { get; }
+    public ICommand NavigateRegisterCommand { get; }
 
-    public LoginViewModel()
+    public LoginViewModel(IAuthentication authentication,
+        INavigationService registerNavigateService,
+        INavigationService contentNavigateService)
     {
-        _userRepository = new UserRepository();
-        LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-        RecoverPasswwordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
+        SubmitCommand = new LoginCommand(this, authentication, contentNavigateService);
+        NavigateRegisterCommand = new NavigateCommand(registerNavigateService);
     }
 
-    private void ExecuteRecoverPassCommand(string username, string email)
-    {
-        throw new NotImplementedException();
-    }
-
-    private bool CanExecuteLoginCommand(object obj)
-    {
-        bool validDate;
-        if (string.IsNullOrWhiteSpace(Username) || Username.Length < 3
-            || Password == null || Password.Length < 3)
-        {
-            validDate = false;
-        }
-        else
-        {
-            validDate = true;
-        }
-        return validDate;
-    }
-
-    private void ExecuteLoginCommand(object obj)
-    {
-        var userResponse = _userRepository.LoginAsync(new System.Net.NetworkCredential(Username, Password));
-        if (userResponse != null && !userResponse.Error)
-        {
-            var token = userResponse.Data?.Token;
-            var refreshToken = userResponse.Data?.RefreshToken;
-            var role = userResponse.Data?.Role;
-            var (username, roles) = JwtHelper.DecodeJwtToken(token);
-
-            if (!string.IsNullOrEmpty(username))
-            {
-                var identity = new GenericIdentity(username);
-                var principal = new GenericPrincipal(identity, roles);
-                Thread.CurrentPrincipal = principal;
-                if (Thread.CurrentPrincipal == null && Thread.CurrentPrincipal.Identity.IsAuthenticated == false)
-                {
-                    // Si aucun principal n'est défini ou l'utilisateur n'est pas authentifié, définissons le nouveau principal
-                    AppDomain.CurrentDomain.SetThreadPrincipal(principal);
-                }
-                else
-                {
-                    // Le principal est déjà défini
-                    Console.WriteLine("Un principal a déjà été défini sur ce thread.");
-                }// Garde les infos dans tous les threads
-
-                //SaveUserToSecureStorage(username, roles, token); // Sauvegarde pour une reconnexion future
-            }
-
-            //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
-
-            //Application.Current.Properties["UserName"] = userName;
-            IsViewVisible = false;
-        }
-        else if (userResponse != null && userResponse.Error)
-        {
-            ErrorMessage = string.Join("", userResponse.Message);
-        }
-        else
-        {
-            ErrorMessage = "Le serveur n'a pas pu etre joint. verifeir votre connexion reseau";
-        }
-    }
 }

@@ -10,11 +10,11 @@ using Text_Swap.Model;
 
 namespace Text_Swap.Repositories;
 
-public class UserRepository : IUserRepository
+public class Authentication : IAuthentication
 {
     private readonly HttpClient _httpClient;
 
-    public UserRepository()
+    public Authentication()
     {
         var config = new ConfigurationBuilder()
                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory) // Définit le répertoire de base
@@ -23,7 +23,7 @@ public class UserRepository : IUserRepository
         string path = config["UrlServerAuthentication"];
         _httpClient = new HttpClient { BaseAddress = new Uri(path) };
     }
-    public Response LoginAsync(NetworkCredential networkCredential)
+    public async Task<Response> LoginAsync(NetworkCredential networkCredential)
     {
         try
         {
@@ -45,7 +45,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public Response Register(string username, string email, SecureString password, SecureString confirmPassword)
+    public async Task<Response> Register(string username, string email, SecureString password, SecureString confirmPassword)
     {
         try
         {
