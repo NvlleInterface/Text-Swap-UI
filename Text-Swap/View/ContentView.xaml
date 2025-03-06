@@ -38,12 +38,12 @@
             <!--Navigation Menu-->
             <Border CornerRadius="10,0,0,10"
                 Grid.Column="0">
-                <Border.Background>
+                <!--<Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7">
                         <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0" />
                         <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1" />
                     </LinearGradientBrush>
-                </Border.Background>
+                </Border.Background>-->
 
                 <StackPanel>
                     <!--Logo-->
@@ -74,65 +74,39 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                Tag="{StaticResource color2}"
-                                 Cursor="Hand"
-                             Command="{Binding NavigateRaccourciCommand}">
+                          Tag="{StaticResource color2}"
+                          IsChecked="True"
+                              Cursor="Hand"
+                          Command="{Binding NavigateRaccourciCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Clone" Style="{StaticResource menuButonIcon}" />
                             <TextBlock Text="Raccourcis" Style="{StaticResource menuButtonText}" />
                         </StackPanel>
                     </RadioButton>
 
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Cursor="Hand"
-                            Tag="{StaticResource color3}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="LineChart" Style="{StaticResource menuButonIcon}" />
-                            <TextBlock Text="Statistiques" Style="{StaticResource menuButtonText}" />
-                        </StackPanel>
-                    </RadioButton>
-
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Cursor="Hand"
-                                Tag="{StaticResource color4}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="User" Style="{StaticResource menuButonIcon}" />
-                            <TextBlock Text="Profil" Style="{StaticResource menuButtonText}" />
-                        </StackPanel>
-                    </RadioButton>
-
-
-
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Cursor="Hand"
-                            Tag="{StaticResource color7}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="PieChart" Style="{StaticResource menuButonIcon}" />
-                            <TextBlock Text="Report" Style="{StaticResource menuButtonText}" />
-                        </StackPanel>
-                    </RadioButton>
-
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Cursor="Hand"
-                            Tag="{StaticResource color8}">
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Tools" Style="{StaticResource menuButonIcon}" />
-                            <TextBlock Text="Settings" Style="{StaticResource menuButtonText}" />
-                        </StackPanel>
-                    </RadioButton>
-
                 </StackPanel>
             </Border>
+            <StackPanel VerticalAlignment="Bottom" Margin="0,20,0,0">
+                <!-- Logout Button -->
+                <RadioButton Style="{StaticResource menuButton}"
+                    Cursor="Hand"
+                   Command="{Binding NavigateLoginCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="SignOut" Style="{StaticResource menuButonIcon}" />
+                        <TextBlock Text="Logout" Style="{StaticResource menuButtonText}" />
+                    </StackPanel>
+                </RadioButton>
+            </StackPanel>
 
             <!--Main Section-->
             <Border CornerRadius="0,10,1,0"
                     Grid.Column="1">
-                <Border.Background>
+                <!--<Border.Background>
                     <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
                         <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0" />
                         <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1" />
                     </LinearGradientBrush>
-                </Border.Background>
+                </Border.Background>-->
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -192,8 +166,8 @@
                             <TextBlock Text="{Binding Caption}"
                                    Foreground="{StaticResource titleColor2}"
                                    FontSize="16"
-                                   FontFamily="Montserrat"
-                                   FontWeight="Medium"
+                                   FontFamily="Nunito"
+                                   FontWeight="Bold"
                                    VerticalAlignment="Center" />
                         </StackPanel>
 
@@ -218,7 +192,7 @@
                             </Button>
                             <!--<TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
                                        Foreground="{StaticResource titleColor3}" 
-                                       FontFamily="Montserrat"
+                                       FontFamily="Nunito"
                                        FontSize="12"
                                        VerticalAlignment="Center"
                                        />-->
@@ -259,4 +233,5 @@
             </Border>
         </Grid>
     </Border>
+
 </UserControl>

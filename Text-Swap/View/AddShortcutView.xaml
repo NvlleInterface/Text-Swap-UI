@@ -1,0 +1,86 @@
+﻿<Window x:Class="Text_Swap.View.AddShortcutView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Text_Swap.ViewModel"
+        xmlns:local="clr-namespace:Text_Swap.View"
+        mc:Ignorable="d"
+        Title="AddShortcutView" Height="400" Width="300"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Topmost="True">
+
+
+    <Border Background="White" 
+        CornerRadius="10" 
+        Padding="10" 
+        BorderBrush="Black" 
+        BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Raccourci" Margin="5"/>
+            <TextBox Grid.Row="1" 
+                 Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="5 5 5 15"
+                 ToolTip="Entrez un raccourci clavier pour remplacer un texte"
+                     Height="auto">
+                <TextBox.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Color="Black" Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+            <TextBlock Grid.Row="1" 
+                       Foreground="Red" 
+                       FontSize="12"
+                       VerticalAlignment="Bottom"
+                       Margin="5,30,5,0"
+                       Text="{Binding ErrorMessage}" 
+                       Visibility="{Binding IsEditing, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+            <TextBlock Grid.Row="2" Text="Expression complète" Margin="5"/>
+            <TextBox Grid.Row="3" 
+                 Text="{Binding NewReplacement, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="5"
+                 Height="250"
+                 ToolTip="Entrez l'expression complète qui remplacera le raccourci">
+                <TextBox.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Color="Black" Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Button Content="{Binding IsEditing, Converter={StaticResource BoolToSaveEditConverter} }" 
+                    Command="{Binding AddShortcutCommand}" 
+                    Margin="5"
+                    Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                    Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="Annuler" 
+                    Command="{Binding CancelShortcutCommand}" 
+                    Margin="5"
+                    Background="#DA4040"
+                    Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</Window>

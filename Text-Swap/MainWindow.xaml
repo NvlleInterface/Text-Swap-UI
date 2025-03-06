@@ -8,8 +8,8 @@
         xmlns:vms="clr-namespace:Text_Swap.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" 
-        Height="600" 
-        Width="850"
+        Height="700" 
+        Width="1000"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
@@ -34,7 +34,6 @@
                 <DataTemplate DataType="{x:Type vms:HomeViewModel}">
                     <views:HomeView />
                 </DataTemplate>
-
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

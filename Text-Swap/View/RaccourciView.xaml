@@ -4,33 +4,126 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Text_Swap.View"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600"
              Name="Raccourcis">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <!-- Colonne gauche -->
+                <ColumnDefinition Width="3*"/>
+                <!-- Colonne droite -->
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <TextBox Width="100" Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 5 0"/>
-            <TextBox Width="360" Text="{Binding NewReplacement, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Content="Ajouter" Command="{Binding AddShortcutCommand}" Margin="5"/>
-        </StackPanel>
+            <StackPanel Grid.Row="0" 
+                Grid.Column="1" 
+                HorizontalAlignment="Right">
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Shortcuts}" Margin="10">
+                <Grid Width="200">
+                    <!-- Icône FontAwesome -->
+                    <fa:IconImage Icon="Search"
+                         Width="16"
+                         Height="16"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Margin="5,0,0,0"
+                         
+                         Foreground="Red"/>
+
+                    <!-- TextBox -->
+                    <TextBox VerticalAlignment="Top"
+                             x:Name="textBox"
+                             KeyUp="textBox_KeyUp"
+                             HorizontalAlignment="Stretch"
+                             Text="Recherche..."
+                             Padding="25,5,5,5"/>
+                </Grid>
+
+                <!-- Popup pour afficher les résultats -->
+                <Popup x:Name="popupResults"
+                       Placement="Bottom"
+                       PlacementTarget="{Binding ElementName=textBox}"
+                       StaysOpen="False"
+                       AllowsTransparency="True"
+                       IsOpen="False">
+                    <Border Background="White"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Width="200"
+                            MaxHeight="200">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Orientation="Vertical"
+                            x:Name="resultStack">
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                </Popup>
+
+            </StackPanel>
+
+            <TextBlock Grid.Row="0" 
+                        Grid.Column="0" 
+                        Text="Tous vos raccourcis, au même endroit"
+                        FontFamily="Nunito"
+                        FontSize="14"
+                        TextWrapping="Wrap"/>
+
+            <DockPanel Grid.Row="1" >
+                <Button x:Name="btnAddShortcut" 
+                        Background="#3174FB"
+                        BorderThickness="0" 
+                        Cursor="Hand"
+                        Padding="10"
+                        Foreground="White"
+                        HorizontalAlignment="Left"
+                        Command="{Binding ShowShortcutCommand}">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="Plus" 
+                          Width="12" 
+                          Height="12" 
+                          Margin="0 0 5 0"
+                          Foreground="White"/>
+                        <TextBlock Text="Ajouter un raccourci"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock 
+                       Text="🕒 Temps économisé: 00:10:53"
+                       FontSize="16"
+                       Foreground="#3174FB"
+                       Background="#F9FBFF"
+                       Padding="10"
+                       HorizontalAlignment="Right"/>
+            </DockPanel>
+        </Grid>
+        <ListView Grid.Row="1" ItemsSource="{Binding Shortcuts}" Margin="10" BorderBrush="Transparent">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Déclencheur" DisplayMemberBinding="{Binding Trigger}" Width="150"/>
-                    <GridViewColumn Header="Remplacement" DisplayMemberBinding="{Binding Replacement}" Width="250"/>
+                    <GridViewColumn Header="Raccourcis" DisplayMemberBinding="{Binding Trigger}" Width="100"/>
+                    <GridViewColumn Header="🕒" DisplayMemberBinding="{Binding TimeSaved}" Width="110"/>
+                    <GridViewColumn Header="Remplacement" DisplayMemberBinding="{Binding Replacement}" Width="350"/>
                     <GridViewColumn Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Supprimer" 
                                         Cursor="Hand"
                                         Command="{Binding DataContext.RemoveShortcutCommand, 
-                                                RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        RelativeSource={RelativeSource AncestorType=UserControl}}"
                                         CommandParameter="{Binding}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -38,5 +131,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
     </Grid>
+
 </UserControl>

@@ -1,16 +1,27 @@
 ﻿<Application x:Class="Text_Swap.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Text_Swap">
+             xmlns:local="clr-namespace:Text_Swap" 
+             xmlns:convert="clr-namespace:Text_Swap.Services">
     
     <Application.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/UIColors.xaml" />
                 <ResourceDictionary Source="/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="/Styles/Text.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanVisibilityConverter"/>
+            <!-- Convertisseur Bool -> Visibility -->
+            <convert:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+            <!-- Convertisseur Bool -> "Modifier"/"Enregistrer" -->
+            <convert:BoolToSaveEditConverter x:Key="BoolToSaveEditConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

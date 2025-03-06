@@ -28,7 +28,7 @@ namespace Text_Swap.Commands
         }
         protected override async Task ExecuteAsync(object parameter)
         {
-            var username = _registerViewModel.Username;
+            var username = $"{_registerViewModel.Prenom} {_registerViewModel.Nom}";
             var password = _registerViewModel.Password;
             var email = _registerViewModel.Email;
             var confirmPassword = _registerViewModel.ConfirmPassword;

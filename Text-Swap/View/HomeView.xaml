@@ -3,213 +3,242 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Text_Swap.View" xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="500"
-             Name="HomeViews">
-
-    
-    <Grid Margin="10">
+             xmlns:local="clr-namespace:Text_Swap.View"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" >
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <!-- Colonne gauche -->
+            <ColumnDefinition Width="3*"/>
+            <!-- Colonne droite -->
+        </Grid.ColumnDefinitions>
+       
+        <StackPanel Grid.Row="0" 
+                    Grid.Column="1" 
+                    HorizontalAlignment="Right">
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" 
-                       Text="Quels raccourcis allons-nous créer aujourd'hui ?" 
-                       Foreground="{StaticResource titleColor2}" 
-                       FontWeight="Bold"
-                       FontSize="14"
-                       TextWrapping="Wrap"/>
-            <StackPanel Grid.Column="1">
-                <Grid>
-
-                    <!-- TextBox avec marges pour laisser de l'espace aux icônes -->
-                    <TextBox x:Name="txtSearch"
-                             Text="{Binding ShortcutInput, UpdateSourceTrigger=PropertyChanged}"
+            <Grid Width="200">
+                <!-- Icône FontAwesome -->
+                <fa:IconImage Icon="Search"
+                             Width="16"
+                             Height="16"
                              VerticalAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Padding="20,0,0,5"
-                             Height="20"
-                             Width="200"
-                             BorderThickness="1"
-                             Foreground="{StaticResource titleColor2}"
-                              BorderBrush="LightGray"
-                             />
-                    <!-- Liste filtrée de raccourcis -->
-                    <ListBox ItemsSource="{Binding FilteredShortcuts}"
-                             SelectedItem="{Binding ShortcutInput, Mode=TwoWay}"
-                             DisplayMemberPath="Trigger"
-                             Grid.Row="1"
-                             Margin="0,20,0,0"/>
-                    <!-- Icône de fermeture (à droite) -->
-                    <fa:IconImage x:Name="btnClearSearch" 
-                             Icon="Times" Width="12" Height="12"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Right"
-                             Margin="0,0,52,0"
-                             Foreground="Gray"
-                             Cursor="Hand"/>
-                    <fa:IconImage Icon="Search" Width="12" Height="12" 
-                              VerticalAlignment="Center" 
-                              Margin="0,0,180,0"
-                              Foreground="Gray"
-                            />
-                </Grid>
+                             HorizontalAlignment="Left"
+                             Margin="5,0,0,0"
+             
+                             Foreground="Red"/>
 
-
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" Margin="0 20 0 0">
-            <TextBlock Text="🕒 Temps économisé :" 
-                       Foreground="#0077CC" 
-                        FontWeight="Bold"/>
-            <TextBlock Text="{Binding TimeSaved}" 
-                       Foreground="Blue" 
-                       FontWeight="Bold"
-                       Margin="130 0 0 0"/>
-        </Grid>
-        <StackPanel Grid.Row="2" Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="Raccourci" 
-                               FontWeight="Bold"
-                               Foreground="{StaticResource titleColor2}" 
-                                FontSize="14"
-                               Margin="0,20,0,5"/>
-                    <TextBox Text="{Binding ShortcutInput, UpdateSourceTrigger=PropertyChanged}" 
-                             Width="200" 
-                             Height="30" Margin="0 0 198 0"
-                             Background="LightGray"
-                             />
-                    <TextBlock  Text="Expression complète" 
-                               FontWeight="Bold" Margin="0,20,0,5"
-                               Foreground="{StaticResource titleColor2}" 
-                                FontSize="14"/>
-                    <TextBox Text="{Binding ExpandedText, Mode=TwoWay}" 
-                             Width="300" 
-                             Height="200" 
-                             Margin="0 0 100 0"
-                             Background="LightGray"/>
-
-                    <TextBlock Text="Assigner à une collection" 
-                               FontWeight="Bold" Margin="0,20,0,5"
-                               Foreground="{StaticResource titleColor2}" 
-                                FontSize="14"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Column="0" 
-                                Grid.Row="0"
-                                Text="Nouvelle collection"
-                                Background="Transparent"
-                                Foreground="{StaticResource titleColor3}" 
-                                FontSize="12"
-                                Margin="0 0 0 10"
-                                >
-                            <fa:IconImage 
-                                 Icon="Add" Width="10" Height="10"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Right"
-                                
-                                 Foreground="Gray"
-                                 Cursor="Hand"/>
-                        </TextBlock>
-                        <TextBlock Grid.Column="1" 
-                                    Grid.Row="0"
-                                    Text="Support client"
-                                    Background="Transparent"
-                                    Foreground="{StaticResource titleColor3}" 
-                                    FontSize="12"
-                                    Margin="0 0 0 0"
-                            >
-                        <fa:IconImage 
-                             Icon="UserFriends" Width="10" Height="10"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Right"
-                             Margin="0,0,0,0"
-                             Foreground="Gray"
-                             Cursor="Hand"/>
-                        </TextBlock>
-                        <TextBlock Grid.Column="2" 
-                                   Grid.Row="0"
-                                   Text="Retard commande"
-                                   Background="Transparent"
-                                   Foreground="{StaticResource titleColor3}"
-                                   FontSize="12"
-                                   Margin="0 0 0 0"
-                            >
-                        <fa:IconImage 
-                             Icon="Clock" Width="10" Height="10"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Right"
-                             
-                             Foreground="Gray"
-                             Cursor="Hand"/>
-                        </TextBlock>
-                        <TextBlock Grid.Column="0" 
-                                    Grid.Row="1"
-                                    Text="Réclamation"
-                                    Background="Transparent"
-                                   Foreground="{StaticResource titleColor3}"
-                                   FontSize="12"
-                                   Margin="0 0 10 10"
-                            >
-                        <fa:IconImage 
-                             Icon="Comment" Width="10" Height="10"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Right"
-                             Margin="0,3,3,0"
-                             Foreground="Gray"
-                             Cursor="Hand"/>
-                        </TextBlock>
-                        <TextBlock Grid.Column="1" 
-                                    Grid.Row="1"
-                                    Text="FAQ"
-                                    Background="Transparent"
-                                   Foreground="{StaticResource titleColor3}"
-                                   FontSize="12"
-                                   Margin="0 0 10 10"
-                            >
-                        <fa:IconImage 
-                             Icon="QuestionCircle" Width="10" Height="10"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Right"
-                             Margin="0,3,3,0"
-                             Foreground="Gray"
-                             Cursor="Hand"/>
-                        </TextBlock>
-                    </Grid>
-
-                </StackPanel>
-
-                <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock Text="Vos derniers raccourcis" 
-                               Foreground="{StaticResource titleColor2}" 
-                                FontSize="14"
-                               FontWeight="Bold" Margin="0,20,0,5"/>
-                    <ListBox ItemsSource="{Binding RecentShortcuts}" 
-                             SelectedItem="{Binding ShortcutInput, Mode=TwoWay}" />
-
-                </StackPanel>
+                <!-- TextBox -->
+                <TextBox VerticalAlignment="Top"
+                         x:Name="textBox"
+                         KeyUp="textBox_KeyUp"
+                         HorizontalAlignment="Stretch"
+                         Text="Recherche..."
+                         Padding="25,5,5,5"/>
             </Grid>
+
+            <!-- Popup pour afficher les résultats -->
+            <Popup x:Name="popupResults"
+                       Placement="Bottom"
+                       PlacementTarget="{Binding ElementName=textBox}"
+                       StaysOpen="False"
+                       AllowsTransparency="True"
+                       IsOpen="False">
+                <Border Background="White"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        Width="200"
+                        MaxHeight="200">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Vertical"
+                            x:Name="resultStack">
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Popup>
+
         </StackPanel>
+        <!-- Ligne 2 -->
+        <TextBlock Grid.Row="0" 
+                   Grid.Column="0" 
+                   Text="Quel raccourci allons-nous créer aujourd'hui"
+                   FontFamily="Nunito"
+                   FontSize="14"
+                   TextWrapping="Wrap"/>
+
+        <!-- Ligne 3 -->
+        <TextBlock Grid.Row="2" 
+                   Grid.Column="0" 
+                   Text="🕒 Temps économisé: 00:10:53"
+                   FontSize="16"
+                   Margin="0 20 0 0"
+                   Foreground="#3174FB"/>
+
+        <!-- Ligne 4 -->
+        <StackPanel Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left">
+            <TextBlock Text="Raccourci" 
+                       FontSize="20"
+                       FontWeight="DemiBold"
+                       Margin="0 20 0 0"/>
+            <TextBox Width="200" Height="30" Padding="5"
+                         BorderThickness="2" BorderBrush="Gray"
+                         Background="White" FontSize="14"
+                         
+                     Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+                <TextBox.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Color="Black" Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="1" Margin="0 0 0 0" >
+            <TextBlock Text="Vos derniers raccourcis" 
+                       FontSize="20"
+                       FontWeight="DemiBold"/>
+            <ScrollViewer Height="200">
+                <ListBox ItemsSource="{Binding RecentShortcuts}"
+                         BorderBrush="Transparent" 
+                         SelectedItem="{Binding ShortcutInput, Mode=TwoWay}"
+                         MouseDoubleClick="ListBox_MouseDoubleClick">
+                </ListBox>
+            </ScrollViewer>
+
+        </StackPanel>
+        <!-- Ligne 5 -->
+        <StackPanel Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left">
+            <TextBlock Text="Expression complète"
+                       FontSize="20"
+                       FontWeight="DemiBold"
+                       Margin="0 20 0 0"/>
+            <TextBox Width="450" Height="200" Padding="5"
+                     BorderThickness="2" BorderBrush="Gray"
+                     Background="White" FontSize="14"
+                     TextWrapping="Wrap"
+                     Text="{Binding NewReplacement, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+                <TextBox.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Color="Black" Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+        </StackPanel>
+        <!-- Ligne 6: Boutons -->
+        <WrapPanel Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" Margin="0 20 0 0">
+            <Button Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    BorderThickness="0" 
+                    Margin="0 0 5 0"
+                    Foreground="#3174FB"
+                    Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="PlusCircle" 
+                                  Width="12" 
+                                  Height="12" 
+                                  Margin="0 0 5 0"
+                                  Foreground="#3174FB"/>
+                    <TextBlock Text="Nouveau raccourcis"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" 
+                    Margin="0 0 5 0"  
+                    BorderBrush="Transparent" 
+                    BorderThickness="1"
+                    Foreground="#3174FB"
+                    Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="ExclamationTriangle" 
+                                  Width="12" Height="12" 
+                                  Margin="0 0 5 0"
+                                  Foreground="#3174FB"/>
+                    <TextBlock Text="Reclamation"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" 
+                    Margin="0 0 5 0"  
+                    BorderBrush="Transparent" 
+                    BorderThickness="2" 
+                    Foreground="#3174FB"
+                    Cursor="Hand"
+                    >
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="Headset" 
+                                  Width="12" 
+                                  Height="12" 
+                                  Margin="0 0 5 0"
+                                  Foreground="#3174FB"/>
+                    <TextBlock Text="Support client" />
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" 
+                    Margin="0 0 5 0"  
+                    BorderBrush="Transparent" 
+                    BorderThickness="0" 
+                    Foreground="#3174FB"
+                    Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="Envelope" 
+                                  Width="12" 
+                                  Height="12" 
+                                  Margin="0 0 5 0"
+                                  Foreground="#3174FB"/>
+                    <TextBlock Text="Mail"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" 
+                    Margin="0 0 5 0" 
+                    BorderBrush="Transparent" 
+                    BorderThickness="0" 
+                    Foreground="#3174FB"
+                    Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="QuestionCircle" 
+                                  Width="12" 
+                                  Height="12" 
+                                  Margin="0 0 5 0"
+                                  Foreground="#3174FB"/>
+                    <TextBlock Text="FAQ"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" 
+                    Margin="0 0 5 0"
+                    BorderBrush="Transparent" 
+                    BorderThickness="0" 
+                    Foreground="#3174FB">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="Clock" 
+                                  Width="12" 
+                                  Height="12" 
+                                  Margin="0 0 5 0"
+                                  Foreground="#3174FB"/>
+                    <TextBlock Text="Retard commande"/>
+                </StackPanel>
+            </Button>
+        </WrapPanel>
+        <Button Grid.Row="6" 
+                Margin="0 20"
+                Padding="10"
+                Width="auto" 
+                Content="Enregistrer le raccourci" 
+                HorizontalAlignment="Left"
+                Background="#3E7DFB"
+                Foreground="White"
+                BorderBrush="Transparent"
+                BorderThickness="1"
+                Cursor="Hand"
+                Command="{Binding AddShortcutCommand}">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
+
 </UserControl>

@@ -50,6 +50,7 @@ namespace Text_Swap.ViewModel
         public ICommand NavigateRaccourciCommand { get; }
         public ICommand NavigateLoginCommand { get; }
         public ICommand NavigateHomeViewCommand { get; }
+
         public ContentViewModel(
             INavigationService loginNavigateService,
         INavigationService raccourcisNavigateService)

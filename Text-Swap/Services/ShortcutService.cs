@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Text_Swap.Services
 {
@@ -43,7 +44,22 @@ namespace Text_Swap.Services
             var shortcuts = LoadShortcuts();
 
             if (shortcuts.ContainsKey(trigger))
-                return false; // Clé déjà existante, ajout refusé
+            {
+               MessageBox.Show($"La clef {trigger} est déjà definie comme raccourci. merci d'utiliser une autre.",
+                "Confirmation", MessageBoxButton.OK,
+                MessageBoxImage.Exclamation);
+                return false;
+            }
+                
+
+            shortcuts[trigger] = replacement;
+            SaveShortcuts(shortcuts);
+            return true;
+        }
+
+        public static bool UpdateShortcut(string trigger, string replacement)
+        {
+            var shortcuts = LoadShortcuts();
 
             shortcuts[trigger] = replacement;
             SaveShortcuts(shortcuts);

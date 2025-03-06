@@ -21,6 +21,22 @@ namespace Text_Swap.ViewModel
         private SecureString _confirmPassword;
         private string _errorMessage;
         private bool _isViewVisible;
+        private string _nom;
+        private string _prenom;
+
+        public string Prenom
+        {
+            get { return _prenom; }
+            set { _prenom = value; OnPropertyChanged(nameof(Prenom)); }
+        }
+
+
+        public string Nom
+        {
+            get { return _nom; }
+            set { _nom = value; OnPropertyChanged(nameof(Nom)); }
+        }
+
 
         public string Username
         {

@@ -1,10 +1,14 @@
-﻿using MVVMEssentials.ViewModels;
+﻿using MaterialDesignThemes.Wpf;
+using MVVMEssentials.ViewModels;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media.Effects;
 using Text_Swap.Model;
 using Text_Swap.Services;
+using Text_Swap.View;
 
 namespace Text_Swap.ViewModel;
 
@@ -26,16 +30,32 @@ public class RaccourciViewModel : ViewModelBase
         set { _newReplacement = value; OnPropertyChanged(nameof(NewReplacement)); }
     }
 
-    public ICommand AddShortcutCommand { get; }
+    public ICommand ShowShortcutCommand { get; }
     public ICommand RemoveShortcutCommand { get; }
 
     public RaccourciViewModel()
     {
         Shortcuts = ShortcutHelper.ConvertToObservableCollection(ShortcutService.LoadShortcuts());
-
-        AddShortcutCommand = new ViewModelCommand(_ => AddShortcut(), _ => CanAddShortcut());
+        //ShowShortcutCommand = new ViewModelCommand(_ => AddShortcut(), _ => CanAddShortcut());
+        ShowShortcutCommand = new ViewModelCommand(ShowShortcutPopup, CanShowShortcutPopup);
         RemoveShortcutCommand = new ViewModelCommand(RemoveShortcut, _ => Shortcuts.Any());
+    }
 
+    private bool CanShowShortcutPopup(object obj)
+    {
+        return true;
+    }
+
+    private void ShowShortcutPopup(object obj)
+    {
+        Window mainWIndow = System.Windows.Application.Current.MainWindow;
+        mainWIndow.Effect = new BlurEffect {Radius = 10 };
+        AddShortcutView addShortcutPopup = new AddShortcutView(shircut =>
+        Shortcuts.Add(shircut));
+        addShortcutPopup.Owner = mainWIndow;
+        addShortcutPopup.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+        addShortcutPopup.ShowDialog();
     }
 
     private bool CanAddShortcut() => !string.IsNullOrWhiteSpace(NewTrigger) && !string.IsNullOrWhiteSpace(NewReplacement);

@@ -59,9 +59,9 @@ public partial class App : Application
                          () => new RaccourciViewModel()));
 
                  service.AddSingleton<NavigationService<HomeViewModel>>(
-                     (service) => new NavigationService<HomeViewModel>(
-                         service.GetRequiredService<NavigationStore>(),
-                         () => new HomeViewModel()));
+                   (service) => new NavigationService<HomeViewModel>(
+                       service.GetRequiredService<NavigationStore>(),
+                       () => new HomeViewModel()));
 
                  service.AddSingleton<MainViewModel>();
                  service.AddSingleton<MainWindow>((service) => new MainWindow()
