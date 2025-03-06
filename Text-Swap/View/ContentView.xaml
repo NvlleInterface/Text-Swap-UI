@@ -149,12 +149,12 @@
                     </StackPanel>
 
                     <!--Header / Caption-->
-                    <Grid Grid.Row="1">
+                    <!--<Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <!--Caption-->
+                        --><!--Caption--><!--
                         <StackPanel Grid.Column="0"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
@@ -171,7 +171,7 @@
                                    VerticalAlignment="Center" />
                         </StackPanel>
 
-                        <!--User options-->
+                        --><!--User options--><!--
                         <StackPanel Grid.Column="1"
                                 Orientation="Horizontal"
                                 FlowDirection="RightToLeft"
@@ -190,12 +190,12 @@
                                           Height="12"
                                           Width="12"/>
                             </Button>
-                            <!--<TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
+                            --><!--<TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
                                        Foreground="{StaticResource titleColor3}" 
                                        FontFamily="Nunito"
                                        FontSize="12"
                                        VerticalAlignment="Center"
-                                       />-->
+                                       />--><!--
 
 
                             <Ellipse Height="35" Width="35"
@@ -203,9 +203,9 @@
                                      StrokeThickness="2"
                                      Margin="10,0,10,0">
 
-                                <!--<Ellipse.Fill>
+                                --><!--<Ellipse.Fill>
                                 <ImageBrush ImageSource="Images/img_customer.png" />
-                            </Ellipse.Fill>-->
+                            </Ellipse.Fill>--><!--
 
 
                             </Ellipse>
@@ -223,7 +223,7 @@
                             </Button>
 
                         </StackPanel>
-                    </Grid>
+                    </Grid>-->
 
                     <!--Content section /Child views-->
                     <ContentControl Content="{Binding CurrentChildView}"
