@@ -102,7 +102,6 @@ namespace Text_Swap.ViewModel
                 OnPropertyChanged(nameof(IsEditing));
             }
         }
-
         public List<string> LastTriggers { get; set; } = new List<string>();
 
         public ICommand SelectShortcutCommand { get; }

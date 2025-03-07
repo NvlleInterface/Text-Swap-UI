@@ -126,7 +126,6 @@
                     <!--<Image Source="/Images/Logo.png"
                        Width="100" Height="100" />-->
                     <TextBlock Text="Transformez vos textes répétititifs"
-                           
                            FontSize="25"
                            FontWeight="Medium"
                            FontFamily="Nunito"
@@ -173,15 +172,18 @@
                          VerticalContentAlignment="Center"
                          Margin="0,5,0,0"
                          Padding="20,0,0,0"
-                         Background="Transparent"
-                         >
-                        <!--<TextBox.Background>
-                        <ImageBrush ImageSource="/Images/img_customer.png"
-                                    Stretch="None"
-                                    AlignmentX="Left"
-                                    />
-                    </TextBox.Background>-->
-                    </TextBox>
+                         Background="Transparent"/>
+
+                    <TextBlock Text="mailpro@email.fr"
+                               Foreground="Gray"
+                               FontSize="13"
+                               FontFamily="Nunito"
+                               VerticalAlignment="Center"
+                               Margin="20,-20,0,0"
+                               IsHitTestVisible="False"
+                               Visibility="{Binding Text, 
+                            ElementName=txtUser, 
+                            Converter={StaticResource StringToVisibilityConverter}}"/>
 
                     <TextBlock Text="Password"
                            Foreground="DarkGray"
@@ -191,6 +193,8 @@
                            Margin="0,35,0,0">
                     </TextBlock>
                     <customcontrols:BindablePassword
+                        x:Name="txtPassword"
+                        Placeholder="john@tenon.com"
                     Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Height="28"
                              Margin="0,5,0,0"/>
@@ -230,8 +234,8 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Width="150" Height="40"
-                CornerRadius="20"
-                Background="{TemplateBinding Background}">
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
 
                                     <Grid>
                                         <!-- Texte LOG IN -->
@@ -240,14 +244,6 @@
                                                FontFamily="Nunito"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
-
-                                        <!-- Spinner -->
-                                        <!--<fa:IconImage Icon="Spinner"
-                              FlowDirection="RightToLeft"
-                              Width="12" Height="12"
-                              Foreground="White"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center"/>-->
                                     </Grid>
 
                                 </Border>

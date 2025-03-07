@@ -73,7 +73,7 @@ public partial class App : Application
     }
     protected override void OnStartup(StartupEventArgs e)
     {
-        INavigationService navigationService = _host.Services.GetService<NavigationService<LoginViewModel>>();
+        INavigationService navigationService = _host.Services.GetService<NavigationService<ContentViewModel>>();
         navigationService.Navigate();
         MainWindow = _host.Services.GetRequiredService<MainWindow>();
         MainWindow.Show();

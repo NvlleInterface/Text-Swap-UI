@@ -42,9 +42,11 @@
                 <TextBox VerticalAlignment="Top"
                          x:Name="textBox"
                          KeyUp="textBox_KeyUp"
+                         FontFamily="Nunito"
                          HorizontalAlignment="Stretch"
                          Text="Recherche..."
                          Padding="25,5,5,5"/>
+                
             </Grid>
 
             <!-- Popup pour afficher les résultats -->
@@ -89,21 +91,34 @@
             <TextBlock Text="Raccourci" 
                        FontSize="20"
                        FontWeight="DemiBold"
+                       FontFamily="Nunito"
                        Margin="0 20 0 0"/>
-            <TextBox Width="200" Height="30" Padding="5"
+            <TextBox x:Name="txtRaccourci"
+                Width="200" Height="30" Padding="5"
                          BorderThickness="2" BorderBrush="Gray"
                          Background="White" FontSize="14"
-                         
+                         FontFamily="Nunito"
                      Text="{Binding NewTrigger, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
                 <TextBox.Effect>
                     <DropShadowEffect ShadowDepth="3" BlurRadius="5" Color="Black" Opacity="0.5"/>
                 </TextBox.Effect>
             </TextBox>
+            <TextBlock Text="/Entrez votre raccourci"
+                           Foreground="Gray"
+                           FontSize="13"
+                           FontFamily="Nunito"
+                           VerticalAlignment="Center"
+                           Margin="20,-27,0,0"
+                           IsHitTestVisible="False"
+                           Visibility="{Binding Text, 
+                        ElementName=txtRaccourci, 
+                        Converter={StaticResource StringToVisibilityConverter}}"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="1" Margin="0 0 0 0" >
             <TextBlock Text="Vos derniers raccourcis" 
                        FontSize="20"
-                       FontWeight="DemiBold"/>
+                       FontWeight="DemiBold"
+                       FontFamily="Nunito"/>
             <ScrollViewer Height="200">
                 <ListBox ItemsSource="{Binding RecentShortcuts}"
                          BorderBrush="Transparent" 
@@ -118,22 +133,37 @@
             <TextBlock Text="Expression complète"
                        FontSize="20"
                        FontWeight="DemiBold"
-                       Margin="0 20 0 0"/>
-            <TextBox Width="450" Height="200" Padding="5"
+                       Margin="0 20 0 0"
+                       FontFamily="Nunito"/>
+            <TextBox x:Name="txtExpressionComplete"
+                Width="450" Height="200" Padding="5"
                      BorderThickness="2" BorderBrush="Gray"
                      Background="White" FontSize="14"
                      TextWrapping="Wrap"
+                     FontFamily="Nunito"
                      Text="{Binding NewReplacement, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
                 <TextBox.Effect>
                     <DropShadowEffect ShadowDepth="3" BlurRadius="5" Color="Black" Opacity="0.5"/>
                 </TextBox.Effect>
             </TextBox>
+            <TextBlock Text="Entrez le texte complet qui remplacera votre raccourci."
+               Foreground="Gray"
+               FontSize="13"
+               FontFamily="Nunito"
+               VerticalAlignment="Center"
+               Margin="20,-370,0,0"
+               IsHitTestVisible="False"
+               Visibility="{Binding Text,
+            ElementName=txtExpressionComplete, 
+            Converter={StaticResource StringToVisibilityConverter}}"
+                       />
         </StackPanel>
         <!-- Ligne 6: Boutons -->
         <WrapPanel Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" Margin="0 20 0 0">
             <Button Background="Transparent" 
                     BorderBrush="Transparent" 
                     BorderThickness="0" 
+                    FontFamily="Nunito"
                     Margin="0 0 5 0"
                     Foreground="#3174FB"
                     Cursor="Hand">
@@ -147,7 +177,8 @@
                 </StackPanel>
             </Button>
             <Button Background="Transparent" 
-                    Margin="0 0 5 0"  
+                    Margin="0 0 5 0" 
+                    FontFamily="Nunito"
                     BorderBrush="Transparent" 
                     BorderThickness="1"
                     Foreground="#3174FB"
@@ -161,7 +192,8 @@
                 </StackPanel>
             </Button>
             <Button Background="Transparent" 
-                    Margin="0 0 5 0"  
+                    Margin="0 0 5 0" 
+                    FontFamily="Nunito"
                     BorderBrush="Transparent" 
                     BorderThickness="2" 
                     Foreground="#3174FB"
@@ -192,7 +224,8 @@
                 </StackPanel>
             </Button>
             <Button Background="Transparent" 
-                    Margin="0 0 5 0" 
+                    Margin="0 0 5 0"
+                    FontFamily="Nunito"
                     BorderBrush="Transparent" 
                     BorderThickness="0" 
                     Foreground="#3174FB"
@@ -225,6 +258,7 @@
                 Margin="0 20"
                 Padding="10"
                 Width="auto" 
+                FontFamily="Nunito"
                 Content="Enregistrer le raccourci" 
                 HorizontalAlignment="Left"
                 Background="#3E7DFB"

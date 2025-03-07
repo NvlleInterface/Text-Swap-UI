@@ -31,16 +31,7 @@
                 HorizontalAlignment="Right">
 
                 <Grid Width="200">
-                    <!-- Icône FontAwesome -->
-                    <fa:IconImage Icon="Search"
-                         Width="16"
-                         Height="16"
-                         VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Margin="5,0,0,0"
-                         
-                         Foreground="Red"/>
-
+                    
                     <!-- TextBox -->
                     <TextBox VerticalAlignment="Top"
                              x:Name="textBox"
@@ -48,6 +39,16 @@
                              HorizontalAlignment="Stretch"
                              Text="Recherche..."
                              Padding="25,5,5,5"/>
+                    <!-- Icône FontAwesome -->
+                    <fa:IconImage Icon="Search"
+                                 Width="16"
+                                 Height="16"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left"
+                                 Margin="5,0,0,0"
+     
+                                 Foreground="Red"/>
+
                 </Grid>
 
                 <!-- Popup pour afficher les résultats -->

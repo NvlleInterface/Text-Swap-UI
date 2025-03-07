@@ -24,6 +24,15 @@ public partial class BindablePassword : UserControl
     public static readonly DependencyProperty PasswordProperty =
         DependencyProperty.Register("Password", typeof(SecureString), typeof(BindablePassword));
 
+    public static readonly DependencyProperty PlaceholderProperty =
+        DependencyProperty.Register(nameof(Placeholder), typeof(string), typeof(BindablePassword), new PropertyMetadata(""));
+
+    public string Placeholder
+    {
+        get => (string)GetValue(PlaceholderProperty);
+        set => SetValue(PlaceholderProperty, value);
+    }
+
     public SecureString Password
     {
         get { return (SecureString)GetValue(PasswordProperty); }
@@ -33,11 +42,45 @@ public partial class BindablePassword : UserControl
     {
         InitializeComponent();
         txtPassword.PasswordChanged += OnPasswordChanged;
+        txtVisiblePassword.TextChanged += OnTextChanged;
+        UpdatePlaceholderVisibility();
+    }
+
+    private void OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        UpdatePlaceholderVisibility();
+    }
+
+    private void UpdatePlaceholderVisibility()
+    {
+        bool isEmpty = string.IsNullOrEmpty(txtPassword.Password) && string.IsNullOrEmpty(txtVisiblePassword.Text);
+        txtPlaceholder.Visibility = isEmpty ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void OnPasswordChanged(object sender, RoutedEventArgs e)
     {
         Password = txtPassword.SecurePassword;
+        UpdatePlaceholderVisibility();
+    }
+
+    private void btnToggleVisibility_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (txtPassword.Visibility == Visibility.Visible)
+        {
+            txtVisiblePassword.Text = txtPassword.Password;
+            txtPassword.Visibility = Visibility.Collapsed;
+            txtVisiblePassword.Visibility = Visibility.Visible;
+            btnToggleVisibility.Icon = FontAwesome.Sharp.IconChar.EyeSlash;
+        }
+        else
+        {
+            txtPassword.Password = txtVisiblePassword.Text;
+            txtPassword.Visibility = Visibility.Visible;
+            txtVisiblePassword.Visibility = Visibility.Collapsed;
+            btnToggleVisibility.Icon = FontAwesome.Sharp.IconChar.Eye;
+        }
+
+        UpdatePlaceholderVisibility();
     }
 }
 
