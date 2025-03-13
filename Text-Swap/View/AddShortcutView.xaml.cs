@@ -21,10 +21,10 @@ namespace Text_Swap.View
     /// </summary>
     public partial class AddShortcutView : Window
     {
-        public AddShortcutView(Action<ShortcutModel> onShorcutAdded)
+        public AddShortcutView(Action<ShortcutModel> onShorcutAdded, string trigger = null, bool isEditing = false)
         {
             InitializeComponent();
-            DataContext = new AddShortcutViewModel(onShorcutAdded);
+            DataContext = new AddShortcutViewModel(onShorcutAdded, trigger, isEditing);
             this.Closed += RemoveBlurEffet;
         }
 

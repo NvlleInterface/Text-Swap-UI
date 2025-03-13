@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:Text_Swap.ViewModel"
         xmlns:local="clr-namespace:Text_Swap.View"
         mc:Ignorable="d"
-        Title="AddShortcutView" Height="400" Width="300"
+        Title="AddShortcutView" Height="450" Width="350"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"

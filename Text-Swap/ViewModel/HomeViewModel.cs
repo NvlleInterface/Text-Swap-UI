@@ -135,10 +135,11 @@ namespace Text_Swap.ViewModel
 
         private void ShowShortcutPopup(object obj)
         {
+            var trigger = obj as string;
             Window mainWIndow = System.Windows.Application.Current.MainWindow;
             mainWIndow.Effect = new BlurEffect { Radius = 10 };
             AddShortcutView addShortcutPopup = new AddShortcutView(shircut =>
-            Shortcuts.Add(shircut));
+            Shortcuts.Add(shircut), trigger, true);
             addShortcutPopup.Owner = mainWIndow;
             addShortcutPopup.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 

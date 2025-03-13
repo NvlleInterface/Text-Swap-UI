@@ -19,13 +19,13 @@
     <Border CornerRadius="10"
         BorderThickness="5"
         Opacity="0.95">
-        <Border.BorderBrush>
+        <!--<Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0" />
                 <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75" />
                 <GradientStop Color="{StaticResource winBorderColor3}" Offset="1" />
             </LinearGradientBrush>
-        </Border.BorderBrush>
+        </Border.BorderBrush>-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <!--Navigation menu-->
@@ -75,7 +75,7 @@
 
                     <RadioButton Style="{StaticResource menuButton}"
                           Tag="{StaticResource color2}"
-                          IsChecked="True"
+                          
                               Cursor="Hand"
                           Command="{Binding NavigateRaccourciCommand}">
                         <StackPanel Orientation="Horizontal">

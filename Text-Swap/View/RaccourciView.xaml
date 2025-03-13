@@ -28,17 +28,24 @@
 
             <StackPanel Grid.Row="0" 
                 Grid.Column="1" 
-                HorizontalAlignment="Right">
+                HorizontalAlignment="Right"
+                        Margin="-600 0 0 0">
 
-                <Grid Width="200">
+                <Grid>
                     
                     <!-- TextBox -->
                     <TextBox VerticalAlignment="Top"
                              x:Name="textBox"
                              KeyUp="textBox_KeyUp"
                              HorizontalAlignment="Stretch"
-                             Text="Recherche..."
-                             Padding="25,5,5,5"/>
+                             Padding="25,5,5,5"
+                              Width="300">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                     <!-- Icône FontAwesome -->
                     <fa:IconImage Icon="Search"
                                  Width="16"
@@ -48,6 +55,16 @@
                                  Margin="5,0,0,0"
      
                                  Foreground="Red"/>
+                    <TextBlock Text="Recherchez un raccourci, une expression..."
+                               Foreground="Gray"
+                               FontSize="13"
+                               FontFamily="Nunito"
+                               VerticalAlignment="Center"
+                               Margin="20,0,0,0"
+                               IsHitTestVisible="False"
+                               Visibility="{Binding Text, 
+                            ElementName=textBox, 
+                            Converter={StaticResource StringToVisibilityConverter}}"/>
 
                 </Grid>
 
